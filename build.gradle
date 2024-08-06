@@ -7,7 +7,7 @@ plugins {
 
 group = 'com.example'
 version = '1.0'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
 
 java {
 	toolchain {
@@ -28,6 +28,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	//jwt 관련
