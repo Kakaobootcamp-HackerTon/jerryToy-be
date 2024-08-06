@@ -177,5 +177,6 @@ gradle-app.setting
 
 ### aplication.properties ###
 src/main/resources/application.properties
+src/main/resources/application-private.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,macos,java
