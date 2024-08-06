@@ -12,6 +12,3 @@ spring:
   security:
     jwt:
       secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
-      expiration: 86400000 # 1 day in milliseconds
-      token-prefix: Bearer 
-      header: Authorization
