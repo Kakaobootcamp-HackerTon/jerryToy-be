@@ -15,7 +15,6 @@ import java.util.Date;
 public class PostSubmitDTO {
     private String title;
     private String content;
-    private Long userId;
     private String destName;
     private String tag;
 
@@ -30,6 +29,7 @@ public class PostSubmitDTO {
                 .likes(0)
                 .views(0)
                 .postDate(sdf.format(new Date()))
+                .people(0)
                 .isValid(true)
                 .build();
     }

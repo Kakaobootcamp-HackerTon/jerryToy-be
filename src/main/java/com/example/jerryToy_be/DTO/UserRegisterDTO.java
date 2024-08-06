@@ -16,7 +16,7 @@ public class UserRegisterDTO {
     private String gender;
     private String mbti;
    // private String profile_image;
-    private Date date;
+//    private Date date;
     //count=0; isValid=true; recent_match=null; degree=36.5; role=user
 
 

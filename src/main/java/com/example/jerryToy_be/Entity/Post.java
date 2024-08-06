@@ -37,7 +37,7 @@ public class Post {
     private String postDate;
 
     @Lob
-    @Column(name="TAG", length=512)
+    @Column
     private String tag;
 
     @Column
@@ -45,6 +45,9 @@ public class Post {
 
     @Column
     private Integer views;
+
+    @Column
+    private Integer people;
 
     @Column
     private boolean isValid;
