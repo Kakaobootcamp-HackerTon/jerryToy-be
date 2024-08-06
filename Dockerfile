@@ -1,31 +1,34 @@
-# 빌드 단계
-FROM gradle:7.4.2-jdk11 AS build
+# Step 1: Use an appropriate base image with JDK 17
+FROM openjdk:17-jdk-slim as build
 
 WORKDIR /app
 
-# Gradle 캐시를 활용하기 위해 Gradle 사용자 홈 디렉토리 설정
-ENV GRADLE_USER_HOME /cache
+# Copy Gradle Wrapper files
+COPY gradlew /app/
+COPY gradle /app/gradle
 
-# 의존성 파일만 복사하여 의존성 캐싱
-COPY build.gradle settings.gradle ./
-RUN gradle build -x test --stacktrace || return 0
+# Copy Gradle files
+COPY build.gradle settings.gradle /app/
 
-# 소스 코드 전체를 복사
-COPY . .
+# Copy the application source code
+COPY src /app/src
 
-# 애플리케이션 빌드
-RUN gradle build -x test --stacktrace
+# Make the Gradle Wrapper executable
+RUN chmod +x ./gradlew
 
-# 실행 단계
-FROM openjdk:11-jre-slim
+# Run Gradle build using the Wrapper
+RUN ./gradlew build -x test --stacktrace
+
+# Step 2: Use an appropriate base image for running the application
+FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-# 빌드 단계에서 생성된 JAR 파일을 복사
-COPY --from=build /app/build/libs/*.jar app.jar
+# Copy the built application from the build stage
+COPY --from=build /app/build/libs/*.jar /app/app.jar
 
-# 애플리케이션 실행
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Expose the port the app runs on
+EXPOSE 8080
 
-# 컨테이너가 실행할 포트 노출
-EXPOSE 443
+# Command to run the application
+CMD ["java", "-jar", "app.jar"]
