@@ -51,10 +51,10 @@ public class User {
     private Integer count;
 
     @Column
-    private Date date;
+    private String date;
 
     @Column
-    private Date recent_match;
+    private String recent_match;
 
     @Column
     private boolean isValid;

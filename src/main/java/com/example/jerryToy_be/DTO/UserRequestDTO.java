@@ -5,7 +5,6 @@ import lombok.Getter;
 
 @Getter
 @Builder
-
 public class UserRequestDTO {
     private String username;
     private String password;

@@ -18,12 +18,11 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long matchId;
 
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
-    private User user;
+    @Column
+    private Long userId;
 
     @Column
-    private Date date;
+    private String date;
 
     @Column
     private String location;
