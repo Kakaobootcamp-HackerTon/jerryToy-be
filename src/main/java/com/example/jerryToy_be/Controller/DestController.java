@@ -17,6 +17,7 @@ public class DestController {
     private final DestService destService;
     @PostMapping
     public ResponseEntity<List<DestResponseDTO>> findDestsByLabel(String[] label) {
+        System.out.println(label);
         try{
             return destService.getDestsByLabel(label);
         } catch(RuntimeException e){
@@ -25,6 +26,7 @@ public class DestController {
     }
     @GetMapping("/{destId}")
     public ResponseEntity<DestResponseDTO> findDestById(@PathVariable Long destId) {
+        System.out.println(destId);
         try{
             return destService.getDestById(destId);
         } catch(RuntimeException e){

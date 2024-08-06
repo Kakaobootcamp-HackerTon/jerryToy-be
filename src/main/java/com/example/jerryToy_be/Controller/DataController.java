@@ -33,6 +33,8 @@ public class DataController {
     @GetMapping
     public void getApiData(@RequestParam int page, @RequestParam int amount) throws RuntimeException{
         // 초기값
+        System.out.println(page);
+        System.out.println(amount);
         final int[] pageNum = {page};
         final int[] amountNum = {amount};
         String apiURL = "https://api.visitjeju.net/vsjApi/contents/searchList";
