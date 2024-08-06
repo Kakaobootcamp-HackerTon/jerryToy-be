@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Builder
@@ -47,6 +49,12 @@ public class User {
 
     @Column
     private Integer count;
+
+    @Column
+    private Date date;
+
+    @Column
+    private Date recent_match;
 
     @Column
     private boolean isValid;

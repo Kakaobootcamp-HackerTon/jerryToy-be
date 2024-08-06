@@ -13,39 +13,21 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
+public class Match {
     @Id
-    @Column(name="post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postId;
+    private Long matchId;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name="user_id", nullable = false)
     private User user;
-
-    @ManyToOne
-    @JoinColumn
-    private Destination dest;
-
-    @Column(nullable = false)
-    private String title;
-
-    @Column
-    private String content;
 
     @Column
     private Date date;
 
-    @Lob
-    @Column(name="TAG", length=512)
-    private String tag;
+    @Column
+    private String location;
 
     @Column
-    private Integer likes;
-
-    @Column
-    private Integer views;
-
-    @Column
-    private boolean isValid;
+    private String status;
 }
