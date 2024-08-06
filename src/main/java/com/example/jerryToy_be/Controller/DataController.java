@@ -3,6 +3,7 @@ package com.example.jerryToy_be.Controller;
 import com.example.jerryToy_be.DTO.apiDataDTO;
 import com.example.jerryToy_be.Repository.DestRepository;
 import com.example.jerryToy_be.Repository.TagRepository;
+import com.example.jerryToy_be.Service.ApiDataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
@@ -24,6 +25,7 @@ import java.nio.charset.StandardCharsets;
 @RestController
 @RequestMapping("/api")
 public class DataController {
+    private final ApiDataService apiDataService;
     public void getApiData(String page) throws Exception{
         // 초기값
         String apiURL = "https://api.visitjeju.net/vsjApi/contents/searchList";
@@ -86,8 +88,8 @@ public class DataController {
                         (String)repPhoto_photoId.get("photoid"),
                         (String)repPhoto_photoId.get("imgpath"),
                         (String)repPhoto_photoId.get("thumbnailpath"));
+                apiDataService.parseAndSave(dto);
             }
-
             rd.close();
             connection.disconnect();
         } catch (IOException e) {

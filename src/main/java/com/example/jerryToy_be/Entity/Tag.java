@@ -13,9 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Tag {
     @Id
+    @Column(name="tag_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tagId;
 
-    @Column
+    @Column(name="tag_name")
     private String tagName;
 }
