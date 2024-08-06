@@ -34,7 +34,6 @@ public class UserService {
                 .age(userRegisterDTO.getAge())
                 .mbti(userRegisterDTO.getMbti())
                 .gender(userRegisterDTO.getGender())
-                .profile_image(userRegisterDTO.getProfile_image())
                 .regDate(sdf.format(new Date()))
                 .count(0)
                 .role("USER")
@@ -54,7 +53,6 @@ public class UserService {
         }
         return UserResponseDTO.builder()
                 .nickname(user.getNickname())
-                .profile_image(user.getProfile_image())
                 .age(user.getAge())
                 .mbti(user.getMbti())
                 .gender(user.getGender())
