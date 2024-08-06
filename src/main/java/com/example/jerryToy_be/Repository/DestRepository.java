@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DestRepository extends JpaRepository<Destination, Long> {
-    Destination findByTag(String tag);
+    Destination findByLabel(String label);
     Destination findByLatitudeAndLongitude(double latitude, double longitude);
     Destination findByDestName(String destName);
     Destination findByAddress(String address);

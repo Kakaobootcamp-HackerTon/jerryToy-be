@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Getter
 @RequiredArgsConstructor
@@ -19,12 +21,24 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final DestRepository destRepository;
-    public ResponseEntity submitPost(PostSubmitDTO postSubmitDTO){
+    public ResponseEntity submitPost(PostSubmitDTO postSubmitDTO) throws RuntimeException {
         User writer = userRepository.findByUserId(postSubmitDTO.getUserId());
         Destination dest = destRepository.findByDestName(postSubmitDTO.getDestName());
-        return postRepository.save(postSubmitDTO.toEntity(writer, dest);
+        postRepository.save(postSubmitDTO.toEntity(writer, dest));
+        return ResponseEntity
+                .ok()
+                .build();
     }
-    public Post getPostById(Long postId){
-        postRepository.findByPostId(postId);
+    public ResponseEntity<Post> getPostById(Long postId) throws RuntimeException {
+        Post post = postRepository.findByPostId(postId);
+        return ResponseEntity
+                .ok()
+                .body(post);
+    }
+    public ResponseEntity<List<Post>> getAllPost() throws RuntimeException {
+        List<Post> posts = postRepository.findAll();
+        return ResponseEntity
+                .ok()
+                .body(posts);
     }
 }
