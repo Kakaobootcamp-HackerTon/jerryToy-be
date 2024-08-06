@@ -2,11 +2,13 @@ package com.example.jerryToy_be.DTO;
 
 import com.example.jerryToy_be.Entity.User;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Component
 public class UserResponseDTO {
     private Long userId;
     private String nickname;
