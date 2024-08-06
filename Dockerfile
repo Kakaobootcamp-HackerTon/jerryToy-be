@@ -3,11 +3,7 @@ FROM openjdk:11-jdk-slim as build
 
 WORKDIR /app
 
-# Install Gradle
-RUN apt-get update && apt-get install -y wget unzip \
-    && wget https://services.gradle.org/distributions/gradle-7.4.2-bin.zip -P /tmp \
-    && unzip -d /opt/gradle /tmp/gradle-7.4.2-bin.zip \
-    && ln -s /opt/gradle/gradle-7.4.2/bin/gradle /usr/bin/gradle
+RUN echo "systemProp.http.proxyHost=krmp-proxy.9rum.cc\nsystemProp.http.proxyPort=3128\nsystemProp.https.proxyHost=krmp-proxy.9rum.cc\nsystemProp.https.proxyPort=3128" > /root/.gradle/gradle.properties
 
 # Copy Gradle build files
 COPY build.gradle settings.gradle /app/
