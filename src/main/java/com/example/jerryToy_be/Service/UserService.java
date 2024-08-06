@@ -60,7 +60,6 @@ public class UserService {
     // 유저정보 조회
     @Transactional
     public UserResponseDTO getUserInfo(String token, Long userId) throws RuntimeException{
-        // jwt값 검증을 어디서 진행할지
         User user = userRepository.findByUserId(userId);
         if(user==null){
             throw new RuntimeException("user not found");
