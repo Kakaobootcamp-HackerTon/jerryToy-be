@@ -19,7 +19,7 @@ public class UserPatchRequestDTO {
     private String mbti;
     private String profile_image;
     public User toEntity(){
-        return User.builder()..build();
+        return User.builder().build();
     }
 }
 //@ModelAttribute

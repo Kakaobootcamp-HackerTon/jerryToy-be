@@ -24,6 +24,6 @@ public class UserService {
                 .isValid()){
             return "redirect:/main";
         }
-
+        else return "redirect:/login";
     }
 }
