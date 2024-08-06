@@ -105,6 +105,7 @@ public class PostService {
             if(post.isPresent()){
                 if(dest.isPresent()){
                     post.get().updatePost(postRequestDTO, dest.get());
+                    postRepository.save(post.get());
                     if(user.isPresent()){
                         user.get().matchUser(user.get());
                     }

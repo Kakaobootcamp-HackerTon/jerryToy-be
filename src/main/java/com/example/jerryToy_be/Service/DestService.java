@@ -32,28 +32,44 @@ public class DestService {
             return ResponseEntity.internalServerError().build();
         }
     }
-    public ResponseEntity<List<DestResponseDTO>> getDestsByLabel(String label){
+    public ResponseEntity<List<DestResponseDTO>> getDestsByLabel(String[] label){
         try{
-            Optional<List<Destination>> destList = Optional.ofNullable(destRepository.findAllByLabel(label));
-            if(destList.isPresent()){
-                List<DestResponseDTO> destResponseDTOs = new ArrayList<>();
-                for(Destination dest : destList.get()){
-                    destResponseDTOs.add(destResponseDTO.byEntity(dest));
+            Optional<List<Destination>> destList;
+            for(String tag : label){
+                destList = Optional.ofNullable(destRepository.findAllByLabel(tag));
+                if(destList.isPresent()){
+                    List<DestResponseDTO> destResponseDTOs = new ArrayList<>();
+                    for(Destination dest : destList.get()){
+                        destResponseDTOs.add(destResponseDTO.byEntity(dest));
+                    }
+                    return ResponseEntity.ok().body(destResponseDTOs);
+                } else {
+                    return ResponseEntity.notFound().build();
                 }
-                return ResponseEntity.ok().body(destResponseDTOs);
-            } else {
-                return ResponseEntity.notFound().build();
             }
         } catch (RuntimeException e){
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }
+        return null;
     }
-
     public ResponseEntity createDest(DestRequestDTO destRequestDTO){
         try{
             destRepository.save(destRequestDTO.toEntity());
             return ResponseEntity.ok().build();
+        } catch (RuntimeException e){
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+    public ResponseEntity<DestResponseDTO> searchByPosition(Double latitude, Double longitude){
+        try{
+            Optional<Destination> dest = Optional.ofNullable(destRepository.findByLatitudeAndLongitude(latitude, longitude));
+            if(dest.isPresent()){
+                return ResponseEntity.ok().body(destResponseDTO.byEntity(dest.get()));
+            } else {
+                return ResponseEntity.notFound().build();
+            }
         } catch (RuntimeException e){
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();

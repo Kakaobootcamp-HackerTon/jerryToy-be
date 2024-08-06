@@ -1,5 +1,6 @@
 package com.example.jerryToy_be.Controller;
 
+import com.example.jerryToy_be.DTO.DestPosReqDTO;
 import com.example.jerryToy_be.DTO.DestRequestDTO;
 import com.example.jerryToy_be.DTO.DestResponseDTO;
 import com.example.jerryToy_be.Service.DestService;
@@ -14,8 +15,8 @@ import java.util.List;
 @RequestMapping("/api/dest")
 public class DestController {
     private final DestService destService;
-    @GetMapping("/{label}")
-    public ResponseEntity<List<DestResponseDTO>> findDestsByLabel(@PathVariable String label) {
+    @PostMapping
+    public ResponseEntity<List<DestResponseDTO>> findDestsByLabel(String[] label) {
         try{
             return destService.getDestsByLabel(label);
         } catch(RuntimeException e){
@@ -35,6 +36,14 @@ public class DestController {
         try{
             return destService.createDest(destRequestDTO);
         } catch(RuntimeException e){
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+    @PostMapping("/find")
+    public ResponseEntity<DestResponseDTO> findDestByPosition(@RequestBody DestPosReqDTO destPosReqDTO) {
+        try{
+            return destService.searchByPosition(destPosReqDTO.getLatitude(), destPosReqDTO.getLongitude());
+        } catch(RuntimeException e) {
             return ResponseEntity.internalServerError().build();
         }
     }
