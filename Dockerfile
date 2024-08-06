@@ -1,34 +1,20 @@
-# Step 1: Use an appropriate base image with JDK 17
-FROM openjdk:17-jdk-slim as build
+# gradle:7.3.1-jdk17 이미지를 기반으로 함
+FROM krmp-d2hub-idock.9rum.cc/goorm/gradle:7.3.1-jdk17
 
-WORKDIR /app
+# 작업 디렉토리 설정
+WORKDIR /home/gradle/project
 
-# Copy Gradle Wrapper files
-COPY gradlew /app/
-COPY gradle /app/gradle
+# Spring 소스 코드를 이미지에 복사
+COPY . .
 
-# Copy Gradle files
-COPY build.gradle settings.gradle /app/
+# gradle 빌드 시 proxy 설정을 gradle.properties에 추가
+RUN echo "systemProp.http.proxyHost=krmp-proxy.9rum.cc\nsystemProp.http.proxyPort=3128\nsystemProp.https.proxyHost=krmp-proxy.9rum.cc\nsystemProp.https.proxyPort=3128" > /root/.gradle/gradle.properties
 
-# Copy the application source code
-COPY src /app/src
+# gradlew를 이용한 프로젝트 필드
+RUN ./gradlew clean build
 
-# Make the Gradle Wrapper executable
-RUN chmod +x ./gradlew
+# DATABASE_URL을 환경 변수로 삽입
+ENV DATABASE_URL=jdbc:mariadb://mariadb/krampoline
 
-# Run Gradle build using the Wrapper
-RUN ./gradlew build -x test --stacktrace
-
-# Step 2: Use an appropriate base image for running the application
-FROM openjdk:17-jdk-slim
-
-WORKDIR /app
-
-# Copy the built application from the build stage
-COPY --from=build /app/build/libs/*.jar /app/app.jar
-
-# Expose the port the app runs on
-EXPOSE 8080
-
-# Command to run the application
-CMD ["java", "-jar", "app.jar"]
+# 빌드 결과 jar 파일을 실행
+CMD ["java", "-jar", "-Dspring.profiles.active=prod", "/home/gradle/project/build/libs/kakao-1.0.jar"]
