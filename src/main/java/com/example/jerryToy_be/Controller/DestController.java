@@ -31,7 +31,7 @@ public class DestController {
             return ResponseEntity.internalServerError().build();
         }
     }
-    @PostMapping
+    @PostMapping("/new")
     public ResponseEntity createDest(@RequestBody DestRequestDTO destRequestDTO) {
         try{
             return destService.createDest(destRequestDTO);

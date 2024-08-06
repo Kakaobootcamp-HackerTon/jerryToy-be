@@ -26,7 +26,7 @@ public class LikeService {
     private final UserResponseDTO userResponseDTO;
     public ResponseEntity doLike(Long userId, Long postId){
         try{
-            Optional<LikePost> like = Optional.ofNullable(likeRepository.findByUserIdAndPostId(userId, postId));
+            Optional<LikePost> like = Optional.ofNullable(likeRepository.findByUserUserIdAndPostPostId(userId, postId));
             if(like.isPresent()){
                 like.get().updateLike(true);
                 likeRepository.save(like.get());
@@ -56,7 +56,7 @@ public class LikeService {
     }
     public ResponseEntity doUnLike(Long userId, Long postId){
         try{
-            Optional<LikePost> like = Optional.ofNullable(likeRepository.findByUserIdAndPostId(userId, postId));
+            Optional<LikePost> like = Optional.ofNullable(likeRepository.findByUserUserIdAndPostPostId(userId, postId));
             if(like.isPresent()){
                 like.get().updateLike(false);
                 likeRepository.save(like.get());
