@@ -1,5 +1,6 @@
 package com.example.jerryToy_be.Controller;
 
+import com.example.jerryToy_be.DTO.PostSubmitDTO;
 import com.example.jerryToy_be.Entity.Post;
 import com.example.jerryToy_be.Service.PostService;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +36,16 @@ public class PostsController {
         }
     }
     @PostMapping("/submit")
-    public ResponseEntity<Post> submitPost(@PathVariable Long userId, @RequestBody Post post){}
+    public ResponseEntity<Post> submitPost(@RequestBody PostSubmitDTO post){
+        if(post==null){
+            return ResponseEntity.badRequest().build();
+        }
+        try{
+            ResponseEntity res = postService.submitPost(post);
+            return res;
+        }catch(RuntimeException e){
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }

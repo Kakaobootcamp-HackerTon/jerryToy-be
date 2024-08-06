@@ -1,6 +1,5 @@
 package com.example.jerryToy_be.Service;
 
-import com.example.jerryToy_be.DTO.UserPatchRequestDTO;
 import com.example.jerryToy_be.DTO.UserRegisterDTO;
 import com.example.jerryToy_be.DTO.UserRequestDTO;
 import com.example.jerryToy_be.DTO.UserResponseDTO;
