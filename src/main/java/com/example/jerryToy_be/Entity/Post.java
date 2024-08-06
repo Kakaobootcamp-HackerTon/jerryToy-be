@@ -34,7 +34,7 @@ public class Post {
     private String content;
 
     @Column
-    private String date;
+    private String postDate;
 
     @Lob
     @Column(name="TAG", length=512)
