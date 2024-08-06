@@ -5,12 +5,12 @@ import com.example.jerryToy_be.Entity.Destination;
 import com.example.jerryToy_be.Entity.Tag;
 import com.example.jerryToy_be.Repository.DestRepository;
 import com.example.jerryToy_be.Repository.TagRepository;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.stereotype.Service;
 
 @Getter
-@RequiredArgsConstructor
+@Builder
+@AllArgsConstructor
 @Service
 public class ApiDataService {
     private final TagRepository tagRepository;

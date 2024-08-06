@@ -24,7 +24,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Timer;
 import java.util.TimerTask;
 
-@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/dataInit")
