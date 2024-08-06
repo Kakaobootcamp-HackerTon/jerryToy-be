@@ -1,22 +1,27 @@
 package com.example.jerryToy_be.Controller;
 
 import com.example.jerryToy_be.DTO.UserRegisterDTO;
-import com.example.jerryToy_be.DTO.UserRequestDTO;
 import com.example.jerryToy_be.Service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.Base64;
+import java.util.HashMap;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/new")
-public class RegisterController {
+@RequestMapping("/api/users")
+public class UserController {
     private final UserService userService;
     @PostMapping
     public String register(@RequestBody UserRegisterDTO userRegisterDTO){
@@ -34,5 +39,12 @@ public class RegisterController {
             log.info("register success");
         }
         return "redirect:/main";
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity registUser(@RequestBody UserRegisterDTO userRegisterDTO){ //회원가입
+        System.out.println("회원 가입");
+        userService.register(userRegisterDTO);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

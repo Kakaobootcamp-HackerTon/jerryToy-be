@@ -15,8 +15,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class Post {
     @Id
-    @Column(name="post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="post_id")
     private Long postId;
 
     @ManyToOne
@@ -34,7 +34,7 @@ public class Post {
     private String content;
 
     @Column
-    private String date;
+    private String postDate;
 
     @Lob
     @Column(name="TAG", length=512)
