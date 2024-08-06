@@ -65,9 +65,9 @@ public class PostsController {
         }
     }
     @PatchMapping("/{postId}")
-    public ResponseEntity editPost(@PathVariable Long postId, @RequestBody PostRequestDTO postRequestDTO){
+    public ResponseEntity editPost(@PathVariable Long postId, @RequestBody PostRequestDTO postRequestDTO, @AuthenticationPrincipal Long userId){
         try{
-            return postService.editPost(postRequestDTO, postId);
+            return postService.editPost(postRequestDTO, postId, userId);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();

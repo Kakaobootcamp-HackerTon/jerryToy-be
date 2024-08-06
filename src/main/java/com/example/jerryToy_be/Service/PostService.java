@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -62,7 +61,7 @@ public class PostService {
     }
     public ResponseEntity<List<PostResponseDTO>> getAllPost(){
         try{
-            Optional<List<Post>> posts = Optional.of(postRepository.findAll());
+            Optional<List<Post>> posts = Optional.ofNullable(postRepository.findAll());
             if(posts.isPresent()){
                 List<PostResponseDTO> postResponseDTOs = new ArrayList<>();
                 for(Post post : posts.get()){
@@ -98,13 +97,17 @@ public class PostService {
             return ResponseEntity.internalServerError().build();
         }
     }
-    public ResponseEntity editPost(PostRequestDTO postRequestDTO, Long postId){
+    public ResponseEntity editPost(PostRequestDTO postRequestDTO, Long postId, Long userId){
         try{
             Optional<Post> post = Optional.ofNullable(postRepository.findByPostId(postId));
             Optional<Destination> dest = Optional.ofNullable(destRepository.findByDestName(postRequestDTO.getDestName()));
+            Optional<User> user = Optional.ofNullable(userRepository.findByUserId(userId));
             if(post.isPresent()){
                 if(dest.isPresent()){
                     post.get().updatePost(postRequestDTO, dest.get());
+                    if(user.isPresent()){
+                        user.get().matchUser(user.get());
+                    }
                     return ResponseEntity.ok().build();
                 } else {
                     return ResponseEntity.notFound().build();

@@ -19,6 +19,7 @@ public class PostRequestDTO {
     private String title;
     private String content;
     private String destName;
+    private String matchDate;
     private String tag;
     private Integer people;
 
@@ -32,7 +33,7 @@ public class PostRequestDTO {
                 .tag(tag)
                 .likes(0)
                 .views(0)
-                .postDate(sdf.format(new Date()))
+                .matchDate(sdf.format(matchDate))
                 .people(people)
                 .isValid(true)
                 .build();

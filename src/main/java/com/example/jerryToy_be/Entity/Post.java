@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -37,6 +38,9 @@ public class Post {
     @Column
     private String postDate;
 
+    @Column
+    private String matchDate;
+
     @Lob
     @Column
     private String tag;
@@ -54,10 +58,12 @@ public class Post {
     private boolean isValid;
 
     public void updatePost(final PostRequestDTO postRequestDTO, final Destination dest){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.title = postRequestDTO.getTitle();
         this.content = postRequestDTO.getContent();
         this.dest = dest;
         this.tag = postRequestDTO.getTag();
         this.people = postRequestDTO.getPeople();
+        this.matchDate = sdf.format(new Date());
     }
 }
