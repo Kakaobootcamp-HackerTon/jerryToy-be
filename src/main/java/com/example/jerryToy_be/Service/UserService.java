@@ -7,6 +7,7 @@ import com.example.jerryToy_be.Entity.User;
 import com.example.jerryToy_be.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,20 +20,8 @@ import java.util.Date;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Transactional
-    public String login(UserRequestDTO userRequestDTO) throws RuntimeException{
-        User temp = userRepository.findByUsername(userRequestDTO.getUsername());
-        if(temp==null){
-            return "cannot find user";
-        } else if(!temp.getPassword().equals(userRequestDTO.getPassword())){
-            return "wrong password";
-        } else if(!temp.isValid()){
-            return "invalid user";
-        } else {
-            return "logged in successfully";
-        }
-    }
 
     // 회원가입 로직
     @Transactional
@@ -40,7 +29,7 @@ public class UserService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         User user = User.builder()
                 .username(userRegisterDTO.getUsername())
-                .password(userRegisterDTO.getPassword())
+                .password(bCryptPasswordEncoder.encode(userRegisterDTO.getPassword()))
                 .nickname(userRegisterDTO.getNickname())
                 .age(userRegisterDTO.getAge())
                 .mbti(userRegisterDTO.getMbti())
