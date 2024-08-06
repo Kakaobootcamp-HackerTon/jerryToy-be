@@ -2,15 +2,14 @@ package com.example.jerryToy_be.Entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 
 import java.util.Date;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,9 +36,6 @@ public class User {
 
     @Column
     private String mbti;
-
-    @Column
-    private String profile_image;
 
     @Column
     private String role;
