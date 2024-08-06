@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Component
 public class DestResponseDTO {
     private Long destId;
     private String destName;
@@ -32,6 +34,7 @@ public class DestResponseDTO {
         }
         return tagList;
     }
+
     public DestResponseDTO byEntity(Destination dest){
         return DestResponseDTO
                 .builder()
