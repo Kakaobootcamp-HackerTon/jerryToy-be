@@ -1,5 +1,6 @@
 package com.example.jerryToy_be.Entity;
 
+import com.example.jerryToy_be.DTO.PostRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,4 +52,12 @@ public class Post {
 
     @Column
     private boolean isValid;
+
+    public void updatePost(final PostRequestDTO postRequestDTO, final Destination dest){
+        this.title = postRequestDTO.getTitle();
+        this.content = postRequestDTO.getContent();
+        this.dest = dest;
+        this.tag = postRequestDTO.getTag();
+        this.people = postRequestDTO.getPeople();
+    }
 }

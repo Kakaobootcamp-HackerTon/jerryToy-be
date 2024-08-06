@@ -1,5 +1,6 @@
 package com.example.jerryToy_be.Controller;
 
+import com.example.jerryToy_be.DTO.PostRequestDTO;
 import com.example.jerryToy_be.DTO.PostResponseDTO;
 import com.example.jerryToy_be.DTO.PostSubmitDTO;
 import com.example.jerryToy_be.Entity.Post;
@@ -59,6 +60,15 @@ public class PostsController {
             ResponseEntity res = postService.submitPost(post, userId);
             return res;
         }catch(RuntimeException e){
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+    @PatchMapping("/{postId}")
+    public ResponseEntity editPost(@PathVariable Long postId, @RequestBody PostRequestDTO postRequestDTO){
+        try{
+            return postService.editPost(postRequestDTO, postId);
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }

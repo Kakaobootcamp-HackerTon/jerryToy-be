@@ -1,5 +1,6 @@
 package com.example.jerryToy_be.Service;
 
+import com.example.jerryToy_be.DTO.PostRequestDTO;
 import com.example.jerryToy_be.DTO.PostResponseDTO;
 import com.example.jerryToy_be.DTO.PostSubmitDTO;
 import com.example.jerryToy_be.Entity.Destination;
@@ -94,6 +95,24 @@ public class PostService {
             }
             return ResponseEntity.ok().body(postResponseDTOs);
         } catch(RuntimeException e){
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+    public ResponseEntity editPost(PostRequestDTO postRequestDTO, Long postId){
+        try{
+            Optional<Post> post = Optional.ofNullable(postRepository.findByPostId(postId));
+            Optional<Destination> dest = Optional.ofNullable(destRepository.findByDestName(postRequestDTO.getDestName()));
+            if(post.isPresent()){
+                if(dest.isPresent()){
+                    post.get().updatePost(postRequestDTO, dest.get());
+                    return ResponseEntity.ok().build();
+                } else {
+                    return ResponseEntity.notFound().build();
+                }
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (RuntimeException e){
             return ResponseEntity.internalServerError().build();
         }
     }
