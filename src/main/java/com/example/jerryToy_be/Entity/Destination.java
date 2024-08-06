@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Destination {
     @Id
-    @Column(name="dest_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="dest_id")
     private Long destId;
 
     @Column(name="dest_name", nullable = false)
