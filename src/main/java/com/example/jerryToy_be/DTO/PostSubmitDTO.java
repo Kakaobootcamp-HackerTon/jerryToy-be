@@ -4,6 +4,7 @@ import com.example.jerryToy_be.Entity.Destination;
 import com.example.jerryToy_be.Entity.Post;
 import com.example.jerryToy_be.Entity.User;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
