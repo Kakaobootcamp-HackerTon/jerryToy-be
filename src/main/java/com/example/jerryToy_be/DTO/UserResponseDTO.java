@@ -7,7 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponseDTO {
-    private int user_id;
     private String nickname;
     private Integer age;
     private String gender;
@@ -15,6 +14,7 @@ public class UserResponseDTO {
     private String profile_image;
     private Double degree;
     private Integer count;
+    private String date;
+    private String recent_match;
     private boolean isValid;
-
 }
