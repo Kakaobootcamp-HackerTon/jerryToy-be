@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -54,4 +55,11 @@ public class User {
 
     @Column
     private boolean isValid;
+
+    public void matchUser(User user){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.recent_match = sdf.format(new Date());
+        this.count = user.getCount()+1;
+        this.degree = user.getDegree()+1;
+    }
 }
