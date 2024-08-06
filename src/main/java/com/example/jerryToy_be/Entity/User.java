@@ -16,8 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class User {
     @Id
-    @Column(name="user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="user_id")
     private Long userId;
 
     @Column(nullable = false)
@@ -51,7 +51,7 @@ public class User {
     private Integer count;
 
     @Column
-    private String date;
+    private String regDate;
 
     @Column
     private String recent_match;

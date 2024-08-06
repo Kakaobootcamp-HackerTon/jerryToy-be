@@ -6,23 +6,22 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Entity
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Match {
+public class Matching {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="match_id")
     private Long matchId;
 
-    @Column
+    @Column(name="user_id")
     private Long userId;
 
     @Column
-    private String date;
+    private String matchDate;
 
     @Column
     private String location;
