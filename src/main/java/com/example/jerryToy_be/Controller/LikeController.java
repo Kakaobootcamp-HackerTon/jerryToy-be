@@ -15,7 +15,7 @@ import java.util.List;
 public class LikeController {
     private final LikeService likeService;
     @PostMapping("/like/{postId}")
-    public ResponseEntity doLike(@PathVariable Long postId, @AuthenticationPrincipal Long userId){
+    public ResponseEntity doLike(@PathVariable Long postId, @PathVariable Long userId){
         try{
             return likeService.doLike(userId, postId);
         } catch(RuntimeException e){

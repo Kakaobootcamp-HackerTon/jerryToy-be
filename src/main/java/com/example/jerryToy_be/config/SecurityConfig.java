@@ -3,6 +3,7 @@ package com.example.jerryToy_be.config;
 import com.example.jerryToy_be.jwt.JWTFilter;
 import com.example.jerryToy_be.jwt.JWTUtil;
 import com.example.jerryToy_be.jwt.LoginFilter;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +14,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -39,7 +48,23 @@ public class SecurityConfig {
 
         return new BCryptPasswordEncoder();
     }
-
+    // 이 빈 추가하니까 됐습니다
+    @Bean
+    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                        CorsConfiguration config = new CorsConfiguration();
+                        config.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
+                        config.setAllowedMethods(Collections.singletonList("*"));
+                        config.setAllowCredentials(true);
+                        config.setAllowedHeaders(Collections.singletonList("*"));
+                        config.setMaxAge(3600L);
+                        return config;
+                    }
+                }));
+        return http.build();
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -58,7 +83,7 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "api/users/register", "/", "/join", "/users", "/users/email", "/users/nickname").permitAll() //해당 경로는 무조건 승인
+                        .requestMatchers("/login","api/users/register", "/", "/join", "/users", "/users/email", "/users/nickname").permitAll() //해당 경로는 무조건 승인
                         .requestMatchers("/admin").hasRole("ADMIN") // ADMIN이라는 권한을 가진 사용자만 접근 가능
                         .anyRequest().authenticated()); // 나머지 경로는 로그인 한 사용자만 접근할 수 있음
 
