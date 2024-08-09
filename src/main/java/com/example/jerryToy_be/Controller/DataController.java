@@ -39,7 +39,7 @@ public class DataController {
         final int[] amountNum = {amount};
         String apiURL = "https://api.visitjeju.net/vsjApi/contents/searchList";
         // 이거 추후에 secret으로 변경해야함
-        String apiKey = "04d34b73ce994cbd9e243123276ebe1c";
+        String apiKey = "제이드한테 연락주세요";
         // 타이머 선언
         Timer Scheduler = new Timer();
         TimerTask task = new TimerTask() {
